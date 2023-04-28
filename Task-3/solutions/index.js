@@ -25,7 +25,8 @@ const onSearchUser = () => {
     })
     .then((url) => fetchRepositories(url))
     .then((reposList) => {
-      return renderRepos(reposList);
+      console.log(reposList);
+      renderRepos(reposList);
       hideSpinner();
     })
     .catch((err) => {

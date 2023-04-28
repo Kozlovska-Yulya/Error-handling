@@ -17,7 +17,6 @@ const onSearchUser = () => {
   const userName = userNameInputElem.value;
 
   fetchUserData(userName)
-    .then((userData) => renderUserData(userData))
     .then((userData) => {
       renderUserData(userData);
       return userData.repos_url;

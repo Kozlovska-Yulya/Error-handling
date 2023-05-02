@@ -1,6 +1,6 @@
 import { fetchRepositories, fetchUserData } from './gateways.js';
 import { renderUserData } from './user.js';
-import { renderRepos } from './repos.js';
+import { renderRepos, cleanReposList } from './repos.js';
 import { showSpinner, hideSpinner } from './spinner.js';
 
 const defaultUser = {
@@ -16,6 +16,8 @@ const userNameInputElem = document.querySelector('.name-form__input');
 
 const onSearchUser = () => {
   showSpinner();
+  cleanReposList();
+
   const userName = userNameInputElem.value;
 
   fetchUserData(userName)
@@ -26,11 +28,13 @@ const onSearchUser = () => {
     .then((url) => fetchRepositories(url))
     .then((reposList) => {
       renderRepos(reposList);
-      hideSpinner();
     })
     .catch((err) => {
-      hideSpinner();
       alert(err.message);
+    })
+
+    .finally(() => {
+      hideSpinner();
     });
 };
 
